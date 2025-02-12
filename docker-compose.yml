@@ -1,11 +1,15 @@
 services:
   web: 
-    container_name: flask
+    container_name: web
     build:
-      context: app
+      context: build_docker
       target: builder
+      dockerfile: Dockerfile
     # flask requires SIGINT to stop gracefully
     # (default stop signal from Compose is SIGTERM)
     stop_signal: SIGINT
     ports:
       - '8000:8000'
+    volumes:
+      - ./app:/app
+    restart: always
